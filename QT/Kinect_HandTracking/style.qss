@@ -1,0 +1,1 @@
+canvas->setStyleSheet("border: 1px solid red");

@@ -25,11 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        kinect.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        myframe.cpp \
+        tracker.cpp \
+        viewport.cpp
 
 HEADERS += \
-        mainwindow.h
+        kinect.h \
+        mainwindow.h \
+        myframe.h \
+        tracker.h \
+        viewport.h
 
 FORMS += \
         mainwindow.ui
@@ -38,3 +46,15 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../../../../lib/release/ -lfreenect2
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../../../../lib/debug/ -lfreenect2
+else:unix: LIBS += -L$$PWD/../../../../../../../../../lib/ -lfreenect2
+
+INCLUDEPATH += $$PWD/../../lib/libfreenect2
+DEPENDPATH += $$PWD/../../lib/libfreenect2
+
+INCLUDEPATH += -I/usr/local/include/opencv4
+LIBS += -L/usr/local/lib
+
+DISTFILES +=

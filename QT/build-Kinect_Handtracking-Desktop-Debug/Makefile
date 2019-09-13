@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../Kinect_Handtracking -I. -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/qt/mkspecs/linux-g++
+INCPATH       = -I../Kinect_Handtracking -I. -I../../lib/libfreenect2 -I-I/usr/local/include/opencv4 -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/qt/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = Kinect_Handtracking1.0.0
 DISTDIR = /home/simon/Documents/Google\ Drive/wdir/w_school/Maturaprojekt/QT/build-Kinect_Handtracking-Desktop-Debug/.tmp/Kinect_Handtracking1.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5Core.so /usr/lib/libGL.so -lpthread   
+LIBS          = $(SUBLIBS) -L/home/simon/Documents/Google\ Drive/wdir/w_school/Maturaprojekt/QT/Kinect_Handtracking/../../../../../../../../../lib/ -lfreenect2 -L/usr/local/lib /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5Core.so /usr/lib/libGL.so -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,10 +52,18 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Kinect_Handtracking/main.cpp \
-		../Kinect_Handtracking/mainwindow.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
+SOURCES       = ../Kinect_Handtracking/kinect.cpp \
+		../Kinect_Handtracking/main.cpp \
+		../Kinect_Handtracking/mainwindow.cpp \
+		../Kinect_Handtracking/myframe.cpp \
+		../Kinect_Handtracking/tracker.cpp \
+		../Kinect_Handtracking/viewport.cpp moc_mainwindow.cpp
+OBJECTS       = kinect.o \
+		main.o \
 		mainwindow.o \
+		myframe.o \
+		tracker.o \
+		viewport.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -213,6 +221,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		../Kinect_Handtracking/.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -232,8 +241,16 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/exceptions.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
-		../Kinect_Handtracking/Kinect_Handtracking.pro ../Kinect_Handtracking/mainwindow.h ../Kinect_Handtracking/main.cpp \
-		../Kinect_Handtracking/mainwindow.cpp
+		../Kinect_Handtracking/Kinect_Handtracking.pro ../Kinect_Handtracking/kinect.h \
+		../Kinect_Handtracking/mainwindow.h \
+		../Kinect_Handtracking/myframe.h \
+		../Kinect_Handtracking/tracker.h \
+		../Kinect_Handtracking/viewport.h ../Kinect_Handtracking/kinect.cpp \
+		../Kinect_Handtracking/main.cpp \
+		../Kinect_Handtracking/mainwindow.cpp \
+		../Kinect_Handtracking/myframe.cpp \
+		../Kinect_Handtracking/tracker.cpp \
+		../Kinect_Handtracking/viewport.cpp
 QMAKE_TARGET  = Kinect_Handtracking
 DESTDIR       = 
 TARGET        = Kinect_Handtracking
@@ -401,6 +418,7 @@ Makefile: ../Kinect_Handtracking/Kinect_Handtracking.pro /usr/lib/qt/mkspecs/lin
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -578,6 +596,7 @@ Makefile: ../Kinect_Handtracking/Kinect_Handtracking.pro /usr/lib/qt/mkspecs/lin
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
 /usr/lib/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/qt/mkspecs/features/exclusive_builds.prf:
 /usr/lib/qt/mkspecs/features/toolchain.prf:
 /usr/lib/qt/mkspecs/features/default_pre.prf:
@@ -613,8 +632,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Kinect_Handtracking/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Kinect_Handtracking/main.cpp ../Kinect_Handtracking/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Kinect_Handtracking/kinect.h ../Kinect_Handtracking/mainwindow.h ../Kinect_Handtracking/myframe.h ../Kinect_Handtracking/tracker.h ../Kinect_Handtracking/viewport.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Kinect_Handtracking/kinect.cpp ../Kinect_Handtracking/main.cpp ../Kinect_Handtracking/mainwindow.cpp ../Kinect_Handtracking/myframe.cpp ../Kinect_Handtracking/tracker.cpp ../Kinect_Handtracking/viewport.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Kinect_Handtracking/mainwindow.ui $(DISTDIR)/
 
 
@@ -651,9 +670,11 @@ compiler_moc_header_make_all: moc_mainwindow.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
 moc_mainwindow.cpp: ../Kinect_Handtracking/mainwindow.h \
+		../Kinect_Handtracking/kinect.h \
+		../Kinect_Handtracking/myframe.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include '/home/simon/Documents/Google Drive/wdir/w_school/Maturaprojekt/QT/build-Kinect_Handtracking-Desktop-Debug/moc_predefs.h' -I/usr/lib/qt/mkspecs/linux-g++ -I'/home/simon/Documents/Google Drive/wdir/w_school/Maturaprojekt/QT/Kinect_Handtracking' -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/9.1.0 -I/usr/include/c++/9.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/9.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/9.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/9.1.0/include-fixed -I/usr/include ../Kinect_Handtracking/mainwindow.h -o moc_mainwindow.cpp
+	/usr/bin/moc $(DEFINES) --include '/home/simon/Documents/Google Drive/wdir/w_school/Maturaprojekt/QT/build-Kinect_Handtracking-Desktop-Debug/moc_predefs.h' -I/usr/lib/qt/mkspecs/linux-g++ -I'/home/simon/Documents/Google Drive/wdir/w_school/Maturaprojekt/QT/Kinect_Handtracking' -I'/home/simon/Documents/Google Drive/wdir/w_school/Maturaprojekt/lib/libfreenect2' -I'/home/simon/Documents/Google Drive/wdir/w_school/Maturaprojekt/QT/Kinect_Handtracking/-I/usr/local/include/opencv4' -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/9.1.0 -I/usr/include/c++/9.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/9.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/9.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/9.1.0/include-fixed -I/usr/include ../Kinect_Handtracking/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -663,7 +684,11 @@ compiler_uic_make_all: ui_mainwindow.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_mainwindow.h
 ui_mainwindow.h: ../Kinect_Handtracking/mainwindow.ui \
-		/usr/bin/uic
+		/usr/bin/uic \
+		../Kinect_Handtracking/viewport.h \
+		../Kinect_Handtracking/tracker.h \
+		../Kinect_Handtracking/kinect.h \
+		../Kinect_Handtracking/myframe.h
 	/usr/bin/uic ../Kinect_Handtracking/mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
@@ -676,12 +701,36 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../Kinect_Handtracking/main.cpp ../Kinect_Handtracking/mainwindow.h
+kinect.o: ../Kinect_Handtracking/kinect.cpp ../Kinect_Handtracking/kinect.h \
+		../Kinect_Handtracking/myframe.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o kinect.o ../Kinect_Handtracking/kinect.cpp
+
+main.o: ../Kinect_Handtracking/main.cpp ../Kinect_Handtracking/mainwindow.h \
+		../Kinect_Handtracking/kinect.h \
+		../Kinect_Handtracking/myframe.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Kinect_Handtracking/main.cpp
 
 mainwindow.o: ../Kinect_Handtracking/mainwindow.cpp ../Kinect_Handtracking/mainwindow.h \
-		ui_mainwindow.h
+		../Kinect_Handtracking/kinect.h \
+		../Kinect_Handtracking/myframe.h \
+		ui_mainwindow.h \
+		../Kinect_Handtracking/viewport.h \
+		../Kinect_Handtracking/tracker.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Kinect_Handtracking/mainwindow.cpp
+
+myframe.o: ../Kinect_Handtracking/myframe.cpp ../Kinect_Handtracking/myframe.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myframe.o ../Kinect_Handtracking/myframe.cpp
+
+tracker.o: ../Kinect_Handtracking/tracker.cpp ../Kinect_Handtracking/tracker.h \
+		../Kinect_Handtracking/kinect.h \
+		../Kinect_Handtracking/myframe.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tracker.o ../Kinect_Handtracking/tracker.cpp
+
+viewport.o: ../Kinect_Handtracking/viewport.cpp ../Kinect_Handtracking/viewport.h \
+		../Kinect_Handtracking/tracker.h \
+		../Kinect_Handtracking/kinect.h \
+		../Kinect_Handtracking/myframe.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o viewport.o ../Kinect_Handtracking/viewport.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
