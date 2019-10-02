@@ -23,6 +23,8 @@ class ViewPort : public QWidget {
   void paintEvent(QPaintEvent *);
 
  private:
+  void drawScaledDot(QPainter *painter, int x, int y);
+
   Tracker *tracker;
   libfreenect2::Frame *frame;
   bool refresh = false;

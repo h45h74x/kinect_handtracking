@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.9.2, 2019-09-13T23:25:38. -->
+<!-- Written by QtCreator 4.9.2, 2019-10-02T12:07:39. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -304,8 +304,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Kinect_Handtracking</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Kinect_Handtracking2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/simon/Userdata/Sync/o_school/5AHEL/Maturaprojekt/QT/Kinect_HandTracking/Kinect_Handtracking.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/simon/Userdata/Sync/o_school/5AHEL/Maturaprojekt/Software/QT/Kinect_HandTracking/Kinect_Handtracking.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>

@@ -12,11 +12,20 @@
 
 #include <QDebug>
 
+const int scalex = 2;
+const int scaley = 2;
+
+const int mywidth = 512;
+const int myheight = 424;
+
 ViewPort::ViewPort(QWidget *widget) : QWidget(widget) {}
 
 void ViewPort::init(Tracker *tracker) {
   this->tracker = tracker;
   setTreshold(-1, -1);
+
+  resize(mywidth * scalex, myheight * scaley);
+  updateGeometry();
 }
 
 void ViewPort::nextFrame() { refresh = true; }
@@ -29,16 +38,28 @@ int ViewPort::setTreshold(int min, int max) {
 }
 
 QColor ViewPort::determineFgColor(float value) {
-  if (value <= MINDEPTH || value >= MAXDEPTH) return nullptr;
   QColor col;
+  if (value <= MINDEPTH || value >= MAXDEPTH) {
+    col.setRgb(0, 0, 0);
+    return col;
+    // return nullptr;
+  }
 
   if ((int)value % 20 == 0) {
-    col.setRgb(255, 255, 255);
+    col.setRgb(0, 255, 255);
   } else {
     col.setGreen((value / MAXDEPTH) * 255);
   }
 
   return col;
+}
+
+void ViewPort::drawScaledDot(QPainter *painter, int x, int y) {
+  for (int xi = 0; xi < scalex; xi++) {
+    for (int yi = 0; yi < scaley; yi++) {
+      painter->drawPoint((x * scalex) + xi, (y * scaley) + yi);
+    }
+  }
 }
 
 void ViewPort::paintEvent(QPaintEvent *) {
@@ -51,13 +72,7 @@ void ViewPort::paintEvent(QPaintEvent *) {
     int framewidth = frame->getWidth();
     int frameheigth = frame->getHeight();
 
-    setFixedSize(framewidth * SCALE, frameheigth * SCALE);
-    resize(framewidth * SCALE, frameheigth * SCALE);
-    updateGeometry();
-
     QPainter painter(this);
-    painter.scale(SCALE, SCALE);
-
     QPen linepen(Qt::blue);
     linepen.setWidth(1);
 
@@ -69,7 +84,7 @@ void ViewPort::paintEvent(QPaintEvent *) {
         if (color != nullptr) {
           linepen.setColor(color);
           painter.setPen(linepen);
-          painter.drawPoint(xi, yi);
+          drawScaledDot(&painter, xi, yi);
         }
       }
     }

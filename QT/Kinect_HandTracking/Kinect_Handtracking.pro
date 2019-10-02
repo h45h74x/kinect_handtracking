@@ -57,4 +57,5 @@ DEPENDPATH += $$PWD/../../lib/libfreenect2
 INCLUDEPATH += -I/usr/local/include/opencv4
 LIBS += -L/usr/local/lib
 
-DISTFILES +=
+DISTFILES += \
+    README-PROJECT

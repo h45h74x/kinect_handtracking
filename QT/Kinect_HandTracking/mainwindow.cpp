@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
   connect(timer, SIGNAL(timeout()), this, SLOT(refreshFrame()));
   timer->start(100);
 
+  ui->canvas->setFixedSize(10000, 10000);
+
   ui->canvas->nextFrame();
 }
 

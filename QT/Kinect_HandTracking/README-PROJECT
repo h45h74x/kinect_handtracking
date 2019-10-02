@@ -1,0 +1,9 @@
+###                     ###
+### Kinect_Handtracking ###
+###                     ###
+
+
+- Kinect Depth Frame Size: 512 x 424
+- GLFW error 65544 Wayland:
+    Use the glfw-x11 packet instead of the glfw-wayland packet that
+    comes with protonect (libfreenect2 sample) if you are using X11
